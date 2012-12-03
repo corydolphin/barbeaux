@@ -1,41 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" 
+        android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <Button
-            android:id="@+id/button1"
+        <TextView
+            android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Click to send" />
-
-        <EditText
-            android:id="@+id/editText1"
-            android:layout_width="196dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textShortMessage" />
-
+            android:text="May I take your order?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <GridView xmlns:android="http://schemas.android.com/apk/res/android" 
+		    android:id="@+id/gridview"
+		    android:layout_width="fill_parent" 
+		    android:layout_height="fill_parent"
+		    android:numColumns="4"
+		    android:verticalSpacing="10dp"
+		    android:horizontalSpacing="10dp"
+		    android:stretchMode="columnWidth"
+		    android:gravity="center"
+		/>
     </LinearLayout>
-
-<ScrollView
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:fillViewport="true" >
-
-    <TextView
-        android:id="@+id/statusText"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="bottom"
-        android:text="" />
-
-</ScrollView>
-</LinearLayout>

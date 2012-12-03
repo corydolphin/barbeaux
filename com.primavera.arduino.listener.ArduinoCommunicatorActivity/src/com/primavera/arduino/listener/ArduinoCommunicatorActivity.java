@@ -32,11 +32,16 @@ import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -115,21 +120,17 @@ public class ArduinoCommunicatorActivity extends Activity {
         if (DEBUG) Log.d(TAG, "onCreate()");
 
         setContentView(R.layout.debuggingv);
-        outputView = (TextView) findViewById(R.id.statusText);
-        final Button button = (Button) findViewById(R.id.button1);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            	EditText mEdit   = (EditText)findViewById(R.id.editText1);
+        GridView gridview = (GridView) findViewById(R.id.gridview);
+        gridview.setAdapter(new ImageAdapter(this));
 
-            	Log.d(TAG,"On Click called!");
-                Intent i = new Intent("primavera.arduino.intent.action.SEND_DATA");
-                String textToWrite = mEdit.getText().toString();
-                Log.d(TAG,"Preparing to write text '" + textToWrite + "'");
-                
-                i.putExtra("primavera.arduino.intent.extra.DATA", (textToWrite+ "\n").getBytes());
-                sendBroadcast(i);
+        gridview.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Toast.makeText(ArduinoCommunicatorActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             }
         });
+        
+        
+
         IntentFilter filter = new IntentFilter();
         filter.addAction(ArduinoCommunicatorService.DATA_RECEIVED_INTENT);
         filter.addAction(ArduinoCommunicatorService.DATA_SENT_INTERNAL_INTENT);
@@ -212,4 +213,72 @@ public class ArduinoCommunicatorActivity extends Activity {
             }
         }
     };
+    public class ImageAdapter extends BaseAdapter {
+        private Context mContext;
+
+        public ImageAdapter(Context c) {
+            mContext = c;
+        }
+
+        public int getCount() {
+            return mThumbIds.length;
+        }
+
+        public Object getItem(int position) {
+            return null;
+        }
+
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        // create a new ImageView for each item referenced by the Adapter
+    	public View getView(int position, View convertView, ViewGroup parent) {
+    		 
+    		LayoutInflater inflater = (LayoutInflater) mContext
+    			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+     
+    		View gridView;
+     
+    		if (convertView == null) {
+     
+    			gridView = new View(mContext);
+     
+    			// get layout from mobile.xml
+    			gridView = inflater.inflate(R.layout.mobile, null);
+     
+    			// set value into textview
+    			TextView textView = (TextView) gridView
+    					.findViewById(R.id.grid_item_label);
+    			textView.setText("sample");
+     
+    			// set image based on selected text
+    			ImageView imageView = (ImageView) gridView
+    					.findViewById(R.id.grid_item_image);
+     
+     
+    			imageView.setImageResource(mThumbIds[position]);
+    			
+     
+    		} else {
+    			gridView = (View) convertView;
+    		}
+     
+    		return gridView;
+    	}
+
+        // references to our images
+        private Integer[] mThumbIds = {
+                R.drawable.coke, R.drawable.sprite,
+                R.drawable.orangina, R.drawable.orange_juice,
+                R.drawable.long_island_ice_tea, R.drawable.orange_blossom,
+                R.drawable.rum_and_coke, R.drawable.rum_fizz,
+                R.drawable.screwdriver, R.drawable.tequila_sunrise,
+                R.drawable.tequila_popper, R.drawable.sample_1,
+        };
+    }
+    static class ViewHolder {
+    	  TextView text;
+    	  ImageView imageView;
+    	}
 }

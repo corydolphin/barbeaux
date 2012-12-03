@@ -1,24 +1,5 @@
-/*
- * Copyright (C) 2012 Mathias Jeppsson
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.primavera.arduino.listener;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -32,17 +13,12 @@ import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class ArduinoCommunicatorActivity extends Activity {
@@ -55,10 +31,11 @@ public class ArduinoCommunicatorActivity extends Activity {
 
     private final static String TAG = "ArduinoCommunicatorActivity";
     private final static boolean DEBUG = true;
-    private final static DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     private Boolean mIsReceiving;
     private String inMessageBuffer = new String();
-    private TextView outputView;
+    
+
+    
     private void findDevice() {
         UsbManager usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
         UsbDevice usbDevice = null;
@@ -126,11 +103,16 @@ public class ArduinoCommunicatorActivity extends Activity {
         gridview.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Toast.makeText(ArduinoCommunicatorActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+            
+                Intent i = new Intent("primavera.arduino.intent.action.SEND_DATA");
+                Log.d(TAG,"Preparing to write text '" + 50 + "'");
+                
+                i.putExtra("primavera.arduino.intent.extra.DATA", (50 + "\n").getBytes());
+                sendBroadcast(i);
+            
             }
         });
         
-        
-
         IntentFilter filter = new IntentFilter();
         filter.addAction(ArduinoCommunicatorService.DATA_RECEIVED_INTENT);
         filter.addAction(ArduinoCommunicatorService.DATA_SENT_INTERNAL_INTENT);
@@ -194,7 +176,7 @@ public class ArduinoCommunicatorActivity extends Activity {
 	        		String newestMessage = inMessageBuffer.substring(0, inMessageBuffer.indexOf("\n"));
 	        		inMessageBuffer = inMessageBuffer.substring(inMessageBuffer.indexOf("\n")+1);
 	        		Log.i(TAG, "message: " + "\"" + newestMessage.replace("\n", "\\n") + "\"");
-	        		outputView.setText(outputView.getText().toString() +dateFormat.format(new Date()) + newestMessage + "\n");
+	        		//outputView.setText(outputView.getText().toString() +dateFormat.format(new Date()) + newestMessage + "\n");
 	        	}
 	        	Log.i(TAG, "data: " + newTransferedData.length + " \"" + stBuild.replace("\n", "\\n")  + "\"");
 	        	Log.i(TAG, "messageBuffer: " + " \"" + inMessageBuffer.replace("\n", "\\n") + "\"");
@@ -213,72 +195,6 @@ public class ArduinoCommunicatorActivity extends Activity {
             }
         }
     };
-    public class ImageAdapter extends BaseAdapter {
-        private Context mContext;
-
-        public ImageAdapter(Context c) {
-            mContext = c;
-        }
-
-        public int getCount() {
-            return mThumbIds.length;
-        }
-
-        public Object getItem(int position) {
-            return null;
-        }
-
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        // create a new ImageView for each item referenced by the Adapter
-    	public View getView(int position, View convertView, ViewGroup parent) {
-    		 
-    		LayoutInflater inflater = (LayoutInflater) mContext
-    			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-     
-    		View gridView;
-     
-    		if (convertView == null) {
-     
-    			gridView = new View(mContext);
-     
-    			// get layout from mobile.xml
-    			gridView = inflater.inflate(R.layout.mobile, null);
-     
-    			// set value into textview
-    			TextView textView = (TextView) gridView
-    					.findViewById(R.id.grid_item_label);
-    			textView.setText("sample");
-     
-    			// set image based on selected text
-    			ImageView imageView = (ImageView) gridView
-    					.findViewById(R.id.grid_item_image);
-     
-     
-    			imageView.setImageResource(mThumbIds[position]);
-    			
-     
-    		} else {
-    			gridView = (View) convertView;
-    		}
-     
-    		return gridView;
-    	}
-
-        // references to our images
-        private Integer[] mThumbIds = {
-                R.drawable.coke, R.drawable.sprite,
-                R.drawable.orangina, R.drawable.orange_juice,
-                R.drawable.long_island_ice_tea, R.drawable.orange_blossom,
-                R.drawable.rum_and_coke, R.drawable.rum_fizz,
-                R.drawable.screwdriver, R.drawable.tequila_sunrise,
-                R.drawable.tequila_popper, R.drawable.sample_1,
-        };
-    }
-    static class ViewHolder {
-    	  TextView text;
-    	  ImageView imageView;
-    	}
+    
+ 
 }

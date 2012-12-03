@@ -16,8 +16,6 @@
 
 package com.primavera.arduino.listener;
 
-import java.util.concurrent.ArrayBlockingQueue;
-
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;

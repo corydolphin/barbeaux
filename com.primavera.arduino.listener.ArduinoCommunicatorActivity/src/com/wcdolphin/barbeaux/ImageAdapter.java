@@ -1,4 +1,4 @@
-package com.primavera.arduino.listener;
+package com.wcdolphin.barbeaux;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.primavera.arduino.listener.DrinkDefinitions.Drink;
+import com.wcdolphin.barbeaux.DrinkDefinitions.Drink;
 
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;

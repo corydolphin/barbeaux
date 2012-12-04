@@ -27,6 +27,7 @@
         <service
             android:name=".ArduinoCommunicatorService"
             android:enabled="true" />
+        <activity android:name="MakeDrinkActivity" android:theme="@android:style/Theme.Dialog"></activity>
     </application>
 
 </manifest>

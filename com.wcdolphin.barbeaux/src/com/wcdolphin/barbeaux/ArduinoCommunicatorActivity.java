@@ -3,6 +3,8 @@ package com.wcdolphin.barbeaux;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import com.wcdolphin.barbeaux.DrinkDefinitions.Drink;
+
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -29,12 +31,34 @@ public class ArduinoCommunicatorActivity extends Activity {
     private static final int ARDUINO_MEGA_2560_R3_USB_PRODUCT_ID = 0x42;
     private static final int ARDUINO_UNO_R3_USB_PRODUCT_ID = 0x43;
 
+    
+    final static String DRINK_BIO_INTENT = "com.wcdolphin.DRINK_BIO";
     private final static String TAG = "ArduinoCommunicatorActivity";
     private final static boolean DEBUG = true;
     private Boolean mIsReceiving;
     private String inMessageBuffer = new String();
-    
+    private DrinkQueue drinkQueue = new DrinkQueue();
 
+    Thread drinkThread = new Thread()
+    {
+    	public boolean shouldRun = true;
+        @Override
+        public void run() {
+            try {
+                while(shouldRun ) {
+                	sleep(10000);
+                	if(drinkQueue.peek() != null){
+                    	Log.i(TAG, drinkQueue.dequeue().toString());
+                	}
+                	else{
+                		Log.i(TAG,"Nothing in the queue");
+                	}
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    };
     
     private void findDevice() {
         UsbManager usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
@@ -95,7 +119,7 @@ public class ArduinoCommunicatorActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (DEBUG) Log.d(TAG, "onCreate()");
-
+        drinkThread.start();
         setContentView(R.layout.debuggingv);
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(this));
@@ -104,18 +128,22 @@ public class ArduinoCommunicatorActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Toast.makeText(ArduinoCommunicatorActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             
-                Intent i = new Intent("primavera.arduino.intent.action.SEND_DATA");
-                Log.d(TAG,"Preparing to write text '" + 50 + "'");
-                
+    			Drink drink = Drink.values()[position];
+                Intent dIntent = new Intent(DRINK_BIO_INTENT);
+    			Intent i = new Intent("primavera.arduino.intent.action.SEND_DATA");
+                Log.d(TAG,"Preparing to write text '" + drink.name+ "'");
+                drinkQueue.enqueue(drink);
                 i.putExtra("primavera.arduino.intent.extra.DATA", (50 + "\n").getBytes());
+                dIntent.putExtra(MakeDrinkActivity.DATA_EXTRA, position);
                 sendBroadcast(i);
-            
+                sendBroadcast(dIntent);
             }
         });
         
         IntentFilter filter = new IntentFilter();
-        filter.addAction(ArduinoCommunicatorService.DATA_RECEIVED_INTENT);
-        filter.addAction(ArduinoCommunicatorService.DATA_SENT_INTERNAL_INTENT);
+        filter.addAction(ArduinoCommunicatorService.DATA_RECEIVED_INTENT); //bind to service intents
+        filter.addAction(ArduinoCommunicatorService.DATA_SENT_INTERNAL_INTENT); //bind to service intent
+        filter.addAction(DRINK_BIO_INTENT); //bind to service intent
         registerReceiver(mReceiver, filter);
         findDevice();
     }
@@ -193,8 +221,12 @@ public class ArduinoCommunicatorActivity extends Activity {
             } else if (ArduinoCommunicatorService.DATA_SENT_INTERNAL_INTENT.equals(action)) {
                 handleTransferedData(intent, false);
             }
+            else if(ArduinoCommunicatorActivity.DRINK_BIO_INTENT.equals(action)){
+                Intent dbio = new Intent(context, MakeDrinkActivity.class);
+                dbio.putExtra(MakeDrinkActivity.DATA_EXTRA, intent.getIntExtra(MakeDrinkActivity.DATA_EXTRA,0));
+            	startActivity(dbio);
+            }
         }
     };
-    
- 
+
 }

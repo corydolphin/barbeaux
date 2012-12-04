@@ -11,7 +11,7 @@ public class DrinkDefinitions {
     	TEQUILA("Orange Juice"),
     	RUM("Orange Juice"),
     	GINGGERALE("Gingerale"),
-    	GIN("Gin");    	
+    	GIN("Gin");
     	
     	public String name;
     	Ingredient(String name){

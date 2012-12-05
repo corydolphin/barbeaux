@@ -5,12 +5,12 @@ import java.util.HashMap;
 
 public class DrinkDefinitions {
     public enum Ingredient{
-    	COKE(1, "Coke"),
-    	SPRITE(2, "Sprite"),
-    	ORANGEJUICE(3, "Orange Juice"),
-    	TEQUILA(4, "Orange Juice"),
-    	RUM(5, "Orange Juice"),
-    	GIN(6, "Gin");
+    	COKE(0, "Coke"),
+    	SPRITE(1, "Sprite"),
+    	ORANGEJUICE(2, "Orange Juice"),
+    	TEQUILA(3, "Tequila"),
+    	RUM(4, "Rum"),
+    	GIN(5, "Gin");
     	
     	public String name;
     	public int pin;
@@ -43,8 +43,8 @@ public class DrinkDefinitions {
     		put(Ingredient.GIN,0.33);
 		}}),
     	RUMANDCOKE(R.drawable.rum_and_coke,"Rum and Coke","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",new HashMap<Ingredient,Double>(){{
-    		put(Ingredient.COKE,0.5);
-    		put(Ingredient.RUM,0.5);
+    		put(Ingredient.COKE,0.75);
+    		put(Ingredient.RUM,0.25);
 		}}),
     	RUMFIZZ(R.drawable.rum_fizz,"Rum Fizz","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",new HashMap<Ingredient,Double>(){{
     		put(Ingredient.SPRITE,0.75);
@@ -56,7 +56,7 @@ public class DrinkDefinitions {
     	}}),
     	SCREWDRIVER(R.drawable.screwdriver,"Screwdriver","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",new HashMap<Ingredient,Double>(){{
     		put(Ingredient.ORANGEJUICE,0.75);
-    		put(Ingredient.RUM,0.75);
+    		put(Ingredient.RUM,0.25);
 		}}),
     	TEQUILASUNRISE(R.drawable.tequila_sunrise,"Tequila Sunrise","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",new HashMap<Ingredient,Double>(){{
     		put(Ingredient.SPRITE,0.50);

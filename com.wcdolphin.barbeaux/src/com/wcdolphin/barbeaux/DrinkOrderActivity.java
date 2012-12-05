@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wcdolphin.barbeaux.DrinkDefinitions.Drink;
@@ -19,11 +21,12 @@ import com.wcdolphin.barbeaux.DrinkDefinitions.Ingredient;
 
 public class DrinkOrderActivity extends Activity {
 	final static String DATA_EXTRA = "wcdolphin.DrinkOrderActivity.Extra.Extra";
+	final static String FINISHED_INTENT = "wcdolphin.DrinkOrderActivity.Finished.Intent";
 	final static String DATA_EXTRA_INGRED = "wcdolphin.DrinkOrderActivity.Extra.Ingred";
 	final static String DATA_EXTRA_ORDER = "wcdolphin.DrinkOrderActivity.Extra.Ord";
 	final static String INGREDIENT_INTENT = "wcdolphin.DrinkOrderActivity.Intent";
 	private Integer drinkNumber = 0;
-
+	public final static int DRINKVOLUME = 300;
 	
 	private void sleep(int ms){
 		try {
@@ -41,11 +44,17 @@ public class DrinkOrderActivity extends Activity {
         setContentView(R.layout.makedrink);
         IntentFilter filter = new IntentFilter();
         filter.addAction(DrinkOrderActivity.INGREDIENT_INTENT); //bind to service intents
-
+        filter.addAction(DrinkOrderActivity.FINISHED_INTENT);
         registerReceiver(doaReceiver, filter);
         
         int dNumber = (Integer)extras.get(DrinkOrderActivity.DATA_EXTRA);
         drinkNumber = dNumber;
+        Drink drink = Drink.values()[dNumber];
+        
+		final ImageView imagePreview = (ImageView)findViewById(R.id.grid_item_image);
+		final TextView textPreview = (TextView)findViewById(R.id.grid_item_label);
+		imagePreview.setImageResource(drink.img);
+		textPreview.setText("One " + drink.name + " coming right up!");
 		final Button cancelButton = (Button)findViewById(R.id.orderdrink_cancel_button);
 		cancelButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
@@ -67,30 +76,27 @@ public class DrinkOrderActivity extends Activity {
                     	for(Ingredient ing : drink.items.keySet())
                     	{
                     		
-                        	String message = "(" + ing.pin +"," + (int)(drink.items.get(ing)*200)  +")";
+                        	String message = "(" + ing.pin +"," + (int)(drink.items.get(ing)*DRINKVOLUME)  +")";
                             Log.d("DRINKORDER","pouring:" + ing.name);
                             sendString(message);
+                            notifyOfPour(count,ing.pin);
                             while(ArduinoCommunicatorActivity.messageQueue.peek() == null)
                         	{
                         		try {
-									Thread.sleep(1000);
+									Thread.sleep(100);
 								} catch (InterruptedException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-                                Log.d("DRINKORDER","finished" + ing.name);
                         	}
-                            notifyOfPour(count,ing.pin);
                             count+=1;
                     		Log.d("DRINKORDER", "messagePumped:" + ArduinoCommunicatorActivity.messageQueue.dequeue() );
                     	}
-                           }
+
+                		sendBroadcast(new Intent(DrinkOrderActivity.FINISHED_INTENT));
+                        }
                         };
                         splashThread.start();
-            	
-            	
-
-
             }
         });
     }
@@ -110,10 +116,20 @@ public class DrinkOrderActivity extends Activity {
         	   int ingredientId = intent.getIntExtra(DrinkOrderActivity.DATA_EXTRA_INGRED, 0);
         	   int ingredientCount = intent.getIntExtra(DrinkOrderActivity.DATA_EXTRA_ORDER, 0);
         	   LinearLayout step = (LinearLayout)findViewById(getIdHack(ingredientCount));
+        	   TextView tv = (TextView)step.findViewById(R.id.ingredient_label);
+        	   Ingredient ing = Ingredient.values()[ingredientId];
+        	   int amount = (int)(Drink.values()[drinkNumber].items.get(ing)*DRINKVOLUME);
+        	   tv.setText(amount + "ml of " + ing.name);
         	   step.setVisibility(View.VISIBLE);
-               Log.d("DRINKORDER","Finished" + ingredientCount);
-
+               Log.d("DRINKORDER","Pouring" + ingredientCount);
             }
+           else if(FINISHED_INTENT.equals(action)){
+               Log.d("DRINKORDER","ALL DONE!");
+               Toast.makeText(getBaseContext(), "Your " + Drink.values()[drinkNumber].name + " is ready", Toast.LENGTH_LONG).show();
+
+        	   unregisterReceiver(doaReceiver);
+        	   finish();
+           }
         }
     };
     

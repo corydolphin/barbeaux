@@ -25,11 +25,11 @@ import android.widget.Toast;
 
 public class ArduinoCommunicatorActivity extends Activity {
 
-    private static final int ARDUINO_USB_VENDOR_ID = 0x2341;
-    private static final int ARDUINO_UNO_USB_PRODUCT_ID = 0x01;
-    private static final int ARDUINO_MEGA_2560_USB_PRODUCT_ID = 0x10;
-    private static final int ARDUINO_MEGA_2560_R3_USB_PRODUCT_ID = 0x42;
-    private static final int ARDUINO_UNO_R3_USB_PRODUCT_ID = 0x43;
+    public static final int ARDUINO_USB_VENDOR_ID = 0x2341;
+    public static final int ARDUINO_UNO_USB_PRODUCT_ID = 0x01;
+    public static final int ARDUINO_MEGA_2560_USB_PRODUCT_ID = 0x10;
+    public static final int ARDUINO_MEGA_2560_R3_USB_PRODUCT_ID = 0x42;
+    public static final int ARDUINO_UNO_R3_USB_PRODUCT_ID = 0x43;
 
     
     final static String DRINK_BIO_INTENT = "com.wcdolphin.DRINK_BIO";

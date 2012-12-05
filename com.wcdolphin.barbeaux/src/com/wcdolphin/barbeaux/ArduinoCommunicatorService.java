@@ -185,6 +185,7 @@ public class ArduinoCommunicatorService extends Service {
             if (DEBUG) Log.d(TAG, "onReceive() " + action);
 
             if (SEND_DATA_INTENT.equals(action)) {
+            	Log.i(TAG,"SEND DATA INTENT");
                 final byte[] dataToSend = intent.getByteArrayExtra(DATA_EXTRA);
                 if (dataToSend == null) {
                     if (DEBUG) Log.i(TAG, "No " + DATA_EXTRA + " extra in intent!");

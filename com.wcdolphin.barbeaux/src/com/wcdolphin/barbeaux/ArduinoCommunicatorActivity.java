@@ -33,38 +33,22 @@ public class ArduinoCommunicatorActivity extends Activity {
 
     
     final static String DRINK_BIO_INTENT = "com.wcdolphin.DRINK_BIO";
+    final static String DRINK_ORDER_INTENT = "com.wcdolphin.DRINK_ORDER";
+    final static String DRINK_MAKE_INTENT = "com.wcdolphin.DRINK_MAKE";
     private final static String TAG = "ArduinoCommunicatorActivity";
     private final static boolean DEBUG = true;
     private Boolean mIsReceiving;
     private String inMessageBuffer = new String();
-    private DrinkQueue drinkQueue = new DrinkQueue();
-
-    Thread drinkThread = new Thread()
-    {
-    	public boolean shouldRun = true;
-        @Override
-        public void run() {
-            try {
-                while(shouldRun ) {
-                	sleep(10000);
-                	if(drinkQueue.peek() != null){
-                    	Log.i(TAG, drinkQueue.dequeue().toString());
-                	}
-                	else{
-                		Log.i(TAG,"Nothing in the queue");
-                	}
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    };
+    public static MessageQueue messageQueue = new MessageQueue();
     
     private void findDevice() {
         UsbManager usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
         UsbDevice usbDevice = null;
         HashMap<String, UsbDevice> usbDeviceList = usbManager.getDeviceList();
-        if (DEBUG) Log.d(TAG, "length: " + usbDeviceList.size());
+        if (DEBUG)
+        {
+        	Log.d(TAG, "length: " + usbDeviceList.size());
+        }
         Iterator<UsbDevice> deviceIterator = usbDeviceList.values().iterator();
         if (deviceIterator.hasNext()) {
             UsbDevice tempUsbDevice = deviceIterator.next();
@@ -119,23 +103,15 @@ public class ArduinoCommunicatorActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (DEBUG) Log.d(TAG, "onCreate()");
-        drinkThread.start();
         setContentView(R.layout.debuggingv);
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(this));
 
         gridview.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Toast.makeText(ArduinoCommunicatorActivity.this, "" + position, Toast.LENGTH_SHORT).show();
-            
     			Drink drink = Drink.values()[position];
                 Intent dIntent = new Intent(DRINK_BIO_INTENT);
-    			Intent i = new Intent("primavera.arduino.intent.action.SEND_DATA");
-                Log.d(TAG,"Preparing to write text '" + drink.name+ "'");
-                drinkQueue.enqueue(drink);
-                i.putExtra("primavera.arduino.intent.extra.DATA", (50 + "\n").getBytes());
-                dIntent.putExtra(MakeDrinkActivity.DATA_EXTRA, position);
-                sendBroadcast(i);
+                dIntent.putExtra(DrinkBioActivity.DATA_EXTRA, position);              
                 sendBroadcast(dIntent);
             }
         });
@@ -144,6 +120,7 @@ public class ArduinoCommunicatorActivity extends Activity {
         filter.addAction(ArduinoCommunicatorService.DATA_RECEIVED_INTENT); //bind to service intents
         filter.addAction(ArduinoCommunicatorService.DATA_SENT_INTERNAL_INTENT); //bind to service intent
         filter.addAction(DRINK_BIO_INTENT); //bind to service intent
+        filter.addAction(DRINK_ORDER_INTENT);
         registerReceiver(mReceiver, filter);
         findDevice();
     }
@@ -203,11 +180,11 @@ public class ArduinoCommunicatorActivity extends Activity {
 	        	{
 	        		String newestMessage = inMessageBuffer.substring(0, inMessageBuffer.indexOf("\n"));
 	        		inMessageBuffer = inMessageBuffer.substring(inMessageBuffer.indexOf("\n")+1);
+	        		
+	        		messageQueue.add(newestMessage.replace("\n", "\\n"));
 	        		Log.i(TAG, "message: " + "\"" + newestMessage.replace("\n", "\\n") + "\"");
 	        		//outputView.setText(outputView.getText().toString() +dateFormat.format(new Date()) + newestMessage + "\n");
 	        	}
-	        	Log.i(TAG, "data: " + newTransferedData.length + " \"" + stBuild.replace("\n", "\\n")  + "\"");
-	        	Log.i(TAG, "messageBuffer: " + " \"" + inMessageBuffer.replace("\n", "\\n") + "\"");
         	}
         }
 
@@ -222,11 +199,17 @@ public class ArduinoCommunicatorActivity extends Activity {
                 handleTransferedData(intent, false);
             }
             else if(ArduinoCommunicatorActivity.DRINK_BIO_INTENT.equals(action)){
-                Intent dbio = new Intent(context, MakeDrinkActivity.class);
-                dbio.putExtra(MakeDrinkActivity.DATA_EXTRA, intent.getIntExtra(MakeDrinkActivity.DATA_EXTRA,0));
+                Intent dbio = new Intent(context, DrinkBioActivity.class);
+                dbio.putExtra(DrinkBioActivity.DATA_EXTRA, intent.getIntExtra(DrinkBioActivity.DATA_EXTRA, 0));
             	startActivity(dbio);
+            }
+            else if(ArduinoCommunicatorActivity.DRINK_ORDER_INTENT.equals(action)){
+                Intent dOrder = new Intent(context, DrinkOrderActivity.class);
+                dOrder.putExtra(DrinkOrderActivity.DATA_EXTRA, intent.getIntExtra(DrinkOrderActivity.DATA_EXTRA, 0));
+            	startActivity(dOrder);
             }
         }
     };
+    
 
 }

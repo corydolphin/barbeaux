@@ -2,24 +2,24 @@ package com.wcdolphin.barbeaux;
 
 import java.util.ArrayList;
 import com.wcdolphin.barbeaux.DrinkDefinitions.Drink;
-public class DrinkQueue extends ArrayList<Drink> {
+public class MessageQueue extends ArrayList<String> {
 
 	/**
 	 * @param args
 	 */
 
-	public Drink dequeue(){
+	public String dequeue(){
 		if(this.size() <= 0){
 			return null;
 		}
 		return this.remove(0);
 	}
 
-	public boolean enqueue(Drink d){
+	public boolean enqueue(String d){
 		return this.add(d);
 	}
 	
-	public Drink peek(){
+	public String peek(){
 		if(this.size() <= 0){
 			return null;
 		}

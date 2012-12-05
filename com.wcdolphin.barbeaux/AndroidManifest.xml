@@ -4,14 +4,14 @@
     android:versionCode="4"
     android:versionName="1.32" >
 
-    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="14" android:maxSdkVersion="20" />
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="14" android:maxSdkVersion="16" />
     <uses-feature android:name="android.hardware.usb.host"/>
 
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name=".ArduinoCommunicatorActivity"
+            android:name="ArduinoCommunicatorActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask" >
             <intent-filter>
@@ -27,7 +27,9 @@
         <service
             android:name=".ArduinoCommunicatorService"
             android:enabled="true" />
-        <activity android:name="MakeDrinkActivity" android:theme="@android:style/Theme.Dialog"></activity>
-    </application>
+        <activity android:name="DrinkOrderActivity" ></activity>
+        <activity android:name="DrinkBioActivity" android:theme="@android:style/Theme.Dialog"></activity>
+        
+        </application>
 
 </manifest>

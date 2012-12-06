@@ -26,8 +26,8 @@ public class DrinkOrderActivity extends Activity {
 	final static String DATA_EXTRA_ORDER = "wcdolphin.DrinkOrderActivity.Extra.Ord";
 	final static String INGREDIENT_INTENT = "wcdolphin.DrinkOrderActivity.Intent";
 	private Integer drinkNumber = 0;
-	public final static int DRINKVOLUME = 300;
-	
+	public final static int DRINKVOLUME = 200;
+	public static boolean shouldRun = true;
 	private void sleep(int ms){
 		try {
 			Thread.sleep(ms);
@@ -66,12 +66,31 @@ public class DrinkOrderActivity extends Activity {
 		
 		orderButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-            	
+            	DrinkOrderActivity.shouldRun = true;
                 Thread splashThread = new Thread() {
+
 
                     @Override
                     public void run() {
                     	Drink drink = Drink.values()[drinkNumber];
+
+                    	
+                        sendString("turnTowards");//move the cup onto the scale
+                        while(ArduinoCommunicatorActivity.messageQueue.dequeue() == null && DrinkOrderActivity.shouldRun)
+                    	{
+                    		try {
+								Thread.sleep(100);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+                    	}
+                        if(!DrinkOrderActivity.shouldRun){	
+                        	Log.d("DrinkOrder","ThreadRunCancelled");
+                        	return;
+                        }
+                        Log.d("DRINKORDER","Finished turning");
+
                     	int count = 1; //start offset, intentionally
                     	for(Ingredient ing : drink.items.keySet())
                     	{
@@ -80,7 +99,7 @@ public class DrinkOrderActivity extends Activity {
                             Log.d("DRINKORDER","pouring:" + ing.name);
                             sendString(message);
                             notifyOfPour(count,ing.pin);
-                            while(ArduinoCommunicatorActivity.messageQueue.peek() == null)
+                            while(ArduinoCommunicatorActivity.messageQueue.peek() == null && DrinkOrderActivity.shouldRun)
                         	{
                         		try {
 									Thread.sleep(100);
@@ -89,14 +108,49 @@ public class DrinkOrderActivity extends Activity {
 									e.printStackTrace();
 								}
                         	}
+                            if(!DrinkOrderActivity.shouldRun){
+                            	
+                            	Log.d("DrinkOrder","ThreadRunCancelled");
+                            	return;
+                            }
                             count+=1;
                     		Log.d("DRINKORDER", "messagePumped:" + ArduinoCommunicatorActivity.messageQueue.dequeue() );
                     	}
-
-                		sendBroadcast(new Intent(DrinkOrderActivity.FINISHED_INTENT));
+                    	
+                        sendString("turnAway");//move the cup onto the scale
+                        while(ArduinoCommunicatorActivity.messageQueue.dequeue() == null && DrinkOrderActivity.shouldRun)
+                    	{
+                    		try {
+								Thread.sleep(100);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+                    	}
+                        if(!DrinkOrderActivity.shouldRun){	
+                        	Log.d("DrinkOrder","ThreadRunCancelled");
+                        	return;
                         }
-                        };
-                        splashThread.start();
+                        Log.d("DRINKORDER","Finished turning away");
+                        sendString("push");//move the cup onto the scale
+                        while(ArduinoCommunicatorActivity.messageQueue.dequeue() == null && DrinkOrderActivity.shouldRun)
+                    	{
+                    		try {
+								Thread.sleep(100);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+                    	}
+                        if(!DrinkOrderActivity.shouldRun){	
+                        	Log.d("DrinkOrder","ThreadRunCancelled");
+                        	return;
+                        }
+                        Log.d("DRINKORDER","Finished pushing");                        
+                		sendBroadcast(new Intent(DrinkOrderActivity.FINISHED_INTENT));
+                    }
+                };
+                splashThread.start();
             }
         });
     }
@@ -118,7 +172,12 @@ public class DrinkOrderActivity extends Activity {
         	   LinearLayout step = (LinearLayout)findViewById(getIdHack(ingredientCount));
         	   TextView tv = (TextView)step.findViewById(R.id.ingredient_label);
         	   Ingredient ing = Ingredient.values()[ingredientId];
-        	   int amount = (int)(Drink.values()[drinkNumber].items.get(ing)*DRINKVOLUME);
+        	   Double amt = Drink.values()[drinkNumber].items.get(ing);
+        	   if( amt == null){
+        		   finish();
+        		   return;
+        	   }
+        	   int amount = (int)(amt*DRINKVOLUME);
         	   tv.setText(amount + "ml of " + ing.name);
         	   step.setVisibility(View.VISIBLE);
                Log.d("DRINKORDER","Pouring" + ingredientCount);
@@ -127,6 +186,7 @@ public class DrinkOrderActivity extends Activity {
                Log.d("DRINKORDER","ALL DONE!");
                Toast.makeText(getBaseContext(), "Your " + Drink.values()[drinkNumber].name + " is ready", Toast.LENGTH_LONG).show();
 
+               DrinkOrderActivity.shouldRun = false;
         	   unregisterReceiver(doaReceiver);
         	   finish();
            }

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wcdolphin.barbeaux.DrinkDefinitions.Drink;
+import com.wcdolphin.barbeaux.DrinkDefinitions.Ingredient;
 
 public class DrinkBioActivity extends Activity {
 	final static String DATA_EXTRA = "wcdolphin.DrinkBioActivity.Extra";
@@ -28,7 +29,12 @@ public class DrinkBioActivity extends Activity {
         drinkNumber = dNumber;
         Drink drink = Drink.values()[dNumber];
 		TextView textView = (TextView)findViewById(R.id.grid_item_label);
-		textView.setText(drink.bio);
+		TextView nameView = (TextView)findViewById(R.id.drink_name);
+		nameView.setText(drink.name);
+		textView.setText(drink.bio + "\n\n Ingredients:");
+		for(Ingredient ing : drink.items.keySet()){
+			textView.append("\n •" + (int)(DrinkOrderActivity.DRINKVOLUME*drink.items.get(ing)) + "ml " + ing.name);
+		}
 		
 		// set image based on selected text
 		ImageView imageView = (ImageView)findViewById(R.id.grid_item_image);

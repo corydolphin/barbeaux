@@ -31,7 +31,7 @@ public class ArduinoCommunicatorActivity extends Activity {
     public static final int ARDUINO_MEGA_2560_R3_USB_PRODUCT_ID = 0x42;
     public static final int ARDUINO_UNO_R3_USB_PRODUCT_ID = 0x43;
 
-    
+
     final static String DRINK_BIO_INTENT = "com.wcdolphin.DRINK_BIO";
     final static String DRINK_ORDER_INTENT = "com.wcdolphin.DRINK_ORDER";
     final static String DRINK_MAKE_INTENT = "com.wcdolphin.DRINK_MAKE";
@@ -54,7 +54,7 @@ public class ArduinoCommunicatorActivity extends Activity {
             UsbDevice tempUsbDevice = deviceIterator.next();
 
             // Print device information. If you think your device should be able
-            // to communicate with this app, add it to accepted products below.
+            // to communicate with this app, add it to accepted products below. test
             if (DEBUG) Log.d(TAG, "VendorId: " + tempUsbDevice.getVendorId());
             if (DEBUG) Log.d(TAG, "ProductId: " + tempUsbDevice.getProductId());
             if (DEBUG) Log.d(TAG, "DeviceName: " + tempUsbDevice.getDeviceName());

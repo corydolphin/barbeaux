@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Barbeaux Software</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="lightbox/js/jquery-ui-1.8.18.custom.min.js"></script>
+    <script src="lightbox/js/jquery.smooth-scroll.min.js"></script>
+    <script src="lightbox/js/lightbox.js"></script>
+    <link href="lightbox/css/lightbox.css" rel="stylesheet" />
+    <style>
+
+    /* GLOBAL STYLES
+    -------------------------------------------------- */
+    /* Padding below the footer and lighter body text */
+    body {
+      padding-bottom: 40px;
+      color: #5a5a5a;
+      background-image:url(./img/creampaper.png);
+    }
+
+
+
+    /* CUSTOMIZE THE NAVBAR
+    -------------------------------------------------- */
+
+    /* Special class on .container surrounding .navbar, used for positioning it into place. */
+    .navbar-wrapper {
+      z-index: 10;
+      margin-top: 20px;
+
+    }
+    .navbar-wrapper .navbar {
+
+    }
+    .navbar.rectangle{
+      margin: 0px;
+      width: 60px;
+      height: 68px;
+      position: absolute;
+      top: -2px;
+      left: 55px;
+    }
+    /* Remove border and change up box shadow for more contrast */
+    .navbar .navbar-inner {
+      border: 0;
+    }
+    .logo-holder{   
+      width: 80px;
+      background-color: #000;
+      border-radius: 0px 0px 5px 5px;
+      position: absolute;
+      height: 80px;
+      margin-right: 80px;
+    }
+    .logo-holder img{
+
+    margin-top: 0px;
+    margin-left: 0px;
+
+    }
+    .nav-collapse.collapse{
+      margin-left:80px;
+    }
+
+    /* Downsize the brand/project name a bit */
+    .navbar .brand {
+      padding: 14px 20px 16px; /* Increase vertical padding to match navbar links */
+      font-size: 16px;
+      font-weight: bold;
+      text-shadow: 0 -1px 0 rgba(0,0,0,.5);
+    }
+
+    /* Navbar links: increase padding for taller navbar */
+    .navbar .nav > li > a {
+      padding: 15px 20px;
+    }
+
+    /* Offset the responsive button for proper vertical alignment */
+    .navbar .btn-navbar {
+      margin-top: 10px;
+    }
+
+
+    /* MARKETING CONTENT
+    -------------------------------------------------- */
+
+    /* Center align the text within the three columns below the carousel */
+    .marketing .span4 {
+      text-align: center;
+    }
+    .marketing h2 {
+      font-weight: normal;
+    }
+    .marketing .span4 p {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+
+    /* Featurettes
+    ------------------------- */
+
+    .featurette-divider {
+      margin: 80px 0; /* Space out the Bootstrap <hr> more */
+    }
+    .featurette {
+      padding-top: 120px; /* Vertically center images part 1: add padding above and below text. */
+      overflow: hidden; /* Vertically center images part 2: clear their floats. */
+    }
+    .featurette-image {
+      margin-top: -120px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
+    }
+
+    /* Give some space on the sides of the floated elements so text doesn't run right into it. */
+    .featurette-image.pull-left {
+      margin-right: 40px;
+    }
+    .featurette-image.pull-right {
+      margin-left: 40px;
+    }
+
+    /* Thin out the marketing headings */
+    .featurette-heading {
+      font-size: 50px;
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+
+    .container.marketing{
+      margin: 0 auto;
+      padding-right:10px;
+      padding-left:10px;
+      background: white;
+      -moz-box-shadow: 0 0 5px #666;
+      -webkit-box-shadow: 0 0 5px #666;
+      box-shadow: 0 0 10px #666;
+      position: relative;
+    }
+
+
+    /* RESPONSIVE CSS
+    -------------------------------------------------- */
+
+    @media (max-width: 979px) {
+
+      .container.navbar-wrapper {
+        margin-bottom: 0;
+        width: auto;
+      }
+      .navbar-inner {
+        border-radius: 0;
+        margin: -20px 0;
+      }
+
+      .carousel .item {
+        height: 500px;
+      }
+      .carousel img {
+        width: auto;
+        height: 500px;
+      }
+
+      .featurette {
+        height: auto;
+        padding: 0;
+      }
+      .featurette-image.pull-left,
+      .featurette-image.pull-right {
+        display: block;
+        float: none;
+        max-width: 40%;
+        margin: 0 auto 20px;
+      }
+    }
+
+
+    @media (max-width: 767px) {
+
+      .navbar-inner {
+        margin: -20px;
+      }
+
+      .carousel {
+        margin-left: -20px;
+        margin-right: -20px;
+      }
+      .carousel .container {
+
+      }
+      .carousel .item {
+        height: 300px;
+      }
+      .carousel img {
+        height: 300px;
+      }
+      .carousel-caption {
+        width: 65%;
+        padding: 0 70px;
+        margin-top: 100px;
+      }
+      .carousel-caption h1 {
+        font-size: 30px;
+      }
+      .carousel-caption .lead,
+      .carousel-caption .btn {
+        font-size: 18px;
+      }
+
+      .marketing .span4 + .span4 {
+        margin-top: 40px;
+      }
+
+      .featurette-heading {
+        font-size: 30px;
+      }
+      .featurette .lead {
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+    }
+
+    </style>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="http://twitter.github.com/bootstrap/assets/ico/favicon.png">
+  </head>
+
+  <body>
+
+
+
+    <!-- NAVBAR
+    ================================================== -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="logo-holder">
+            <img src="./img/logo.png"></img>
+          </div>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li>
+                <a href="./index.html">Home</a>
+              </li>
+              <li class="">
+                <a href="./Mechanical.html">Mechanical</a>
+              </li>
+              <li class="">
+                <a href="./Electrical.html">Electrical</a>
+              </li>
+              <li class="active">
+                <a href="./Software.html">Software</a>
+              </li>
+              <li class="">
+                <a href="./Results.html">Results</a>
+              </li>
+              <li class="">
+                <a href="./About.html">The Team</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container marketing" style="padding-top: 100px; padding-bottom: 25px;">
+      <h2 class="featurette-heading">Software</h2>
+      <div class="row">
+        <div class="span6">
+        <p >The brave bit-bopping software engineers on the Barbeaux team solved problems worth only of evil geniuses: convince an old tablet to speak with an Arduino and build an Android application to abstract this communication into a beautiful and intuitive interface. The fun part? This tablet did not natively support USB Host, forming serial connections or any of the niceties that the Arduino drivers often supply on the typical slew of PCs.</p>
+        <p >
+          The software component of this project involved both an Arduino and an Android tablet, as mentioned. Because of the nature of the two systems, 
+            each device performed different tasks:
+        </p>
+      </div>
+       <!-- FOOTER -->
+          <img class="span4 offset1" style="text-align:center;" src="img/Software/ommunication.jpg" >
+        </div>
+      <h2>Overview</h2>
+
+      <div class="row">
+        <div class="span6" style="float:left;">
+          <h3>Android</h3>
+          <p>The Barbeaux is fitted with an HP Touchpad running an Android application specifically designed to allow users to select beverages and to act as the true "brain" of the operation, maintaining knowledge of the state of Barbeaux, the position of different beverages and driving communications.</p>
+        </div>
+        <div class="span6" style="float:right;">
+        <h3>Arduino</h3>
+          <p>An Arduino microcontroller is embedded invisibly within the Barbeaux in order to communicate with the servos and solenoid valves used to make beverages. In our design, the Arduino is a stateless device with no memory of the state of the system, merely receiving commands from the Android and acting upon them.</p>
+
+        </div>
+      </div>
+
+
+      <h2>Talking USB</h2>
+      <div class="row">
+        <div class="span8">
+          <p>Taking an HP Touchpad running the discontinued WebOS, and convincing it to act as a USB host represented an interesting challenge. While most mobile devices use USB to communicate with a desktop PC, the PC acts as the USB host, recognizing the device and providing the drivers required to interface with the device. On the HP Touchpad? No such luck.</p>
+          <p>The solution? Rebuild, retest and retest again. Luckily, the HP Touchpad is fairly flexibile, fundamentally running an ARM linux kernel. As with most hacks these days, the solution was to then convince the device to run Android, opting for the common Cyanogen Mod port of Android. After installing Android, the process of exploring the intricacies of kernel modules continued; after trying a number of different kernels, compiling more than a fair share of modules and bricking the device multiple times, we were able to compile and load a kernel which supported USB Host, solving about half of the problem</p>
+        </div>
+        <div class="span4" style="float:left;">
+          <img src="img/Software/cm9.jpg" width="300px">
+          <div style="clear: both">A somewhat friendly robot</div>
+        </div>
+      </div>
+      <h2>Asking politely: serial communications</h2>
+      <div class="row">
+        <div class="span8">
+          <p>Now able to communicate with generic USB devices, such as old keyboards and mice, we were able to approach the Arduino and begin a conversation.</p>
+          <p>Building off of an amazing open source Android application, <a href="https://github.com/jeppsson/Arduino-Communicator">Arduino Communicator</a>, we were able to quickly get started commnicating with the Arduino. As with any open source project, we hd a few interesting hurdles, specifically around line encodings and recognizing the newer Arduino Uno Rev3. </p>
+          <p>
+            Without Arduino's serial drivers able to handle opening a serial communication line, and configuring the Arduino and the host to pass messages using the same encoding scheme, we had the pleasure of convincing the two devices to play nice, refreshing our knowledge of hex and learning about USB control commands.
+          </p>
+        </div>
+        <div class="span4">
+<pre class="prettyprint linenums" width="300px"  style="text-align:left;">// Arduino USB serial converter setup
+// Set control line state
+mUsbConnection.controlTransfer(0x21, 0x22, 0, 0, null, 0, 0);
+// Set line encoding.
+mUsbConnection.controlTransfer(0x21, 0x20, 0, 0, getLineEncoding(9600), 7, 0);
+</pre>
+          <div style="clear: both">Establishing a serial connection and setting the line encoding</div>
+        </div>
+      </div>
+
+
+      <h2>The Application</h2>
+      <div class="row">
+        <div class="span6">
+          <p>The application itself has three main pages: the menu page, the drink biography page and the ordering drink page.</p>
+        </div>
+      </div>
+
+      <div class="row" style="text-align:center;">
+        <div class="span4">
+        <h3>Menu Page</h3>
+          <p style="text-align:left;">When first loaded, the user is shown the order page, from which they can select any beverage to order. The page aims to display the beverages in a graphically interesting way, enticing users to order.</p>
+        <a href="img/Software/menu.png"  rel="lightbox" title="Menu Page" class="span2"><img style="margin-left:70px;"  src="img/Software/menu.png"></img></a>
+        </div>
+        <div class="span4">
+
+        <h3>Drink Biography Page</h3>
+          <p style="text-align:left;">After a user selects a beverage, a short, descriptive and interesting biography is presented. This biography allows a user to see what the drink contains, and read about the important history of the beverage..</p>
+        <a href="img/Software/bio.png"  rel="lightbox" title="Menu Page" class="span2"><img style="margin-left:70px;"  src="img/Software/bio.png"></img></a>
+        </div>
+        <div class="span4">
+        <h3>Order Drink Page</h3>
+                  <p style="text-align:left;">After a user orders a beverage, they are asked to place a cup in the hopper, and then are consistently updated on the status of their beverage as the Barbeaux creates the concoction just for you.</p>
+        <a href="img/Software/order.png"  rel="lightbox" title="Menu Page" class="span2"><img style="margin-left:70px;"  src="img/Software/order.png"></img></a>
+        </div>        
+      </div>
+    </div>
+
+      <footer>
+        <hr>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2012 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
+
+    </div><!-- /.container -->
+
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

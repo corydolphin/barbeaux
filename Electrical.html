@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Barbeaux Electrical</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <style>
+
+    /* GLOBAL STYLES
+    -------------------------------------------------- */
+    /* Padding below the footer and lighter body text */
+    body {
+      padding-bottom: 40px;
+      color: #5a5a5a;
+      background-image:url(./img/creampaper.png);
+    }
+
+
+
+    /* CUSTOMIZE THE NAVBAR
+    -------------------------------------------------- */
+
+    /* Special class on .container surrounding .navbar, used for positioning it into place. */
+    .navbar-wrapper {
+      z-index: 10;
+      margin-top: 20px;
+
+    }
+    .navbar-wrapper .navbar {
+
+    }
+    .navbar.rectangle{
+      margin: 0px;
+      width: 60px;
+      height: 68px;
+      position: absolute;
+      top: -2px;
+      left: 55px;
+    }
+    /* Remove border and change up box shadow for more contrast */
+    .navbar .navbar-inner {
+      border: 0;
+    }
+    .logo-holder{   
+      width: 80px;
+      background-color: #000;
+      border-radius: 0px 0px 5px 5px;
+      position: absolute;
+      height: 80px;
+      margin-right: 80px;
+    }
+    .logo-holder img{
+
+    margin-top: 0px;
+    margin-left: 0px;
+
+    }
+    .nav-collapse.collapse{
+      margin-left:80px;
+    }
+
+    /* Downsize the brand/project name a bit */
+    .navbar .brand {
+      padding: 14px 20px 16px; /* Increase vertical padding to match navbar links */
+      font-size: 16px;
+      font-weight: bold;
+      text-shadow: 0 -1px 0 rgba(0,0,0,.5);
+    }
+
+    /* Navbar links: increase padding for taller navbar */
+    .navbar .nav > li > a {
+      padding: 15px 20px;
+    }
+
+    /* Offset the responsive button for proper vertical alignment */
+    .navbar .btn-navbar {
+      margin-top: 10px;
+    }
+
+
+    /* MARKETING CONTENT
+    -------------------------------------------------- */
+
+    /* Center align the text within the three columns below the carousel */
+    .marketing .span4 {
+      text-align: center;
+    }
+    .marketing h2 {
+      font-weight: normal;
+    }
+    .marketing .span4 p {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+
+    /* Featurettes
+    ------------------------- */
+
+    .featurette-divider {
+      margin: 80px 0; /* Space out the Bootstrap <hr> more */
+    }
+    .featurette {
+      padding-top: 120px; /* Vertically center images part 1: add padding above and below text. */
+      overflow: hidden; /* Vertically center images part 2: clear their floats. */
+    }
+    .featurette-image {
+      margin-top: -120px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
+    }
+
+    /* Give some space on the sides of the floated elements so text doesn't run right into it. */
+    .featurette-image.pull-left {
+      margin-right: 40px;
+    }
+    .featurette-image.pull-right {
+      margin-left: 40px;
+    }
+
+    /* Thin out the marketing headings */
+    .featurette-heading {
+      font-size: 50px;
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+
+    .container.marketing{
+      margin: 0 auto;
+      padding-right:10px;
+      padding-left:10px;
+      background: white;
+      -moz-box-shadow: 0 0 5px #666;
+      -webkit-box-shadow: 0 0 5px #666;
+      box-shadow: 0 0 10px #666;
+      position: relative;
+    }
+
+
+    /* RESPONSIVE CSS
+    -------------------------------------------------- */
+
+    @media (max-width: 979px) {
+
+      .container.navbar-wrapper {
+        margin-bottom: 0;
+        width: auto;
+      }
+      .navbar-inner {
+        border-radius: 0;
+        margin: -20px 0;
+      }
+
+      .carousel .item {
+        height: 500px;
+      }
+      .carousel img {
+        width: auto;
+        height: 500px;
+      }
+
+      .featurette {
+        height: auto;
+        padding: 0;
+      }
+      .featurette-image.pull-left,
+      .featurette-image.pull-right {
+        display: block;
+        float: none;
+        max-width: 40%;
+        margin: 0 auto 20px;
+      }
+    }
+
+
+    @media (max-width: 767px) {
+
+      .navbar-inner {
+        margin: -20px;
+      }
+
+      .carousel {
+        margin-left: -20px;
+        margin-right: -20px;
+      }
+      .carousel .container {
+
+      }
+      .carousel .item {
+        height: 300px;
+      }
+      .carousel img {
+        height: 300px;
+      }
+      .carousel-caption {
+        width: 65%;
+        padding: 0 70px;
+        margin-top: 100px;
+      }
+      .carousel-caption h1 {
+        font-size: 30px;
+      }
+      .carousel-caption .lead,
+      .carousel-caption .btn {
+        font-size: 18px;
+      }
+
+      .marketing .span4 + .span4 {
+        margin-top: 40px;
+      }
+
+      .featurette-heading {
+        font-size: 30px;
+      }
+      .featurette .lead {
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+    }
+
+    </style>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="http://twitter.github.com/bootstrap/assets/ico/favicon.png">
+  </head>
+
+  <body>
+
+
+
+    <!-- NAVBAR
+    ================================================== -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="logo-holder">
+            <img src="./img/logo.png"></img>
+          </div>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li>
+                <a href="./index.html">Home</a>
+              </li>
+              <li class="">
+                <a href="./Mechanical.html">Mechanical</a>
+              </li>
+              <li class="active">
+                <a href="./Electrical.html">Electrical</a>
+              </li>
+              <li class="">
+                <a href="./Software.html">Software</a>
+              </li>
+              <li class="">
+                <a href="./Results.html">Results</a>
+              </li>
+              <li class="">
+                <a href="./About.html">The Team</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container marketing" style="padding-top: 100px; padding-left: 20px;">
+      <h2 class="featurette-heading">Electrical</h2>
+      <p>The brave electrical engineers on the Barbeux team faced two gargantuan tasks that only superhuman engineers could tackle: to control solenoid valves and servos using an Arduino, and measuring the right amount of liquid poured into the cup.  Despite these tasks being so immense that failure was assured, our fearless EE's rose to the occasion.</p>
+      <h2>Measurement</h2>
+      <div class="row">
+        <div class="span8">
+          <p>We decided to measure liquid by weight. Early on, we realized that our desired precision was not particularly high; since a shot of liquor weighs around 50 grams, and a full cup of mixed drink weighs around 250 grams, we really only needed accuracy to within 10 grams to still make a reasonable drink.  However, we did need measurements to happen quickly: liquid pours fast, and so we need to measure frequently to stop the pour at the appropriate time.  We decided that weight would meet those goals best.  This had the advantage of only requiring one sensor and the added bonus of being incredibly inexpensive.  It did, however, require some reverse-engineering.</p>
+          <p>Rather than make our own sensor or purchase a load sensor, we decided to use one from a ubiquitous device: a scale. We purchased a few <a href="http://www.amazon.com/gp/product/B009NBTZ3U/ref=oh_details_o00_s00_i00">Crazy Cart 500g mini jewelry scales</a> and ripped out their sensors.  Despite being only $5, they're pretty accurate - they'll tell you a penny is 2.5 grams any day of the week. </p>
+          <p>A load sensor, as it turns out, is a little bar of metal with a funny-shaped hole cut through. Above the hole, there's a variable resistor in the middle of a <a href="http://en.wikipedia.org/wiki/Wheatstone_bridge">Wheatstone Bridge</a>.  We measured the voltage across the bridge, and found the voltage was around 1 milliVolt - far too low to measure with an Arduino, which can measure, at its most precise, a few milliVolts.  We needed to amplify that signal up to a level where the Arduino could read it. </p>
+        </div>
+        <div class="span4">
+          <img src="img/Electrical/straingauge.jpg" width="300px">
+          <div style="clear: both">A strain gauge.</div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="span4"><img src="img/Electrical/scale_uncalibrated.jpg" width="400px"></div>
+        <div class="span4"><img src="img/Electrical/scale_readings.jpg" width="400px"></div>
+       <div class="span4"><p style="text-align: left">Once we were able to read the voltage from the scale, we were delighted to see that the voltage-to-weight relationship was linear, and so it was very easy to calibrate.  We got some pretty great accuracy from the scale - we were within 1% accurate to our test scale, and tended to have a nice tight dataset, though electrical noise could cause that to jump a good amount.  Especially bearing in mind that we only needed a +/- 10 grams of accuracy, an error of less than two grams was more than enough for us.  Practically, that error was even lower, especially because after every single pour we zero'd the scale (and so errors do not compound).</p>
+      </div>
+    </div>
+    <br>
+      <div class="row">
+        <div class="span5"><p>We made the amplification circuit using an AD623an.  This is an instrumentational amplifier, which outputs an amplified difference between two signals. Since we were measuring a Wheatstone bridge, we were getting a voltage difference, not an absolute voltage, so this was the perfect chip for the job.</p>
+          <p>We read the output of the AD623an into one of the analog read ports of the Arduino.  However, we were a little discouraged with the raw data: it was basically garbage.  The variation from one data point to the next was enormous, and we were only able to minimize that variance if we took at least 10,000 samples and averaged them.  That worked, but took around a second - that was too slow for us.  Lucky for us, you can change the sampling rate of the Arduino, and we were able to get about a fourfold increase in sample rate - which let us quadruple our speed, with no drawbacks.</p></div>
+        <div class="span4"><img src="img/Electrical/amplifier.png" width="400px"></div>
+        <div class="span3"><img src="img/Electrical/ad623an.jpg" width="300px"></div>
+      </div>
+
+
+
+      <h2>Solenoid Valves</h2>
+
+      <div class="row">
+      <div class="span4"><img src="img/Electrical/solenoid.png">
+        <em style="display: block; clear:both;">The transistor acts as switch here, taking an order from the Arduino as to allow current to flow through the solenoid valve or not. </em></div>
+        <div class="span4" style="text-align: left;">
+          <p>We controlled liquid pouring with <a href="http://en.wikipedia.org/wiki/Solenoid_valve">solenoid valves</a>.  These are magnetically-controlled valves that open when DC current passes through.  Ours were rated for around 12 Volts, which is higher than the Arduino could output directly.  We needed to amplify this output.</p>
+          <p>The simplest way to use a low voltage to trigger a higher voltage is to use a transistor.  The TIP120 Darlington NPN transistor has three pins, called the emitter, collector, and base.  It allows current to flow from its collector to its emitter when current flows through its base. When we write a high voltage to the base, current flows.  The beauty is that the emitter and collector are connected to an external power supply, for us, around 20 V, and the current draw on the Arduino is very low.  </p>
+        </div>
+        <div class="span4">
+          <img src="img/Electrical/transistor.png" style="width:300px">
+          <div><em>This photo shows three transistors connected to the digital outputs of the Arduino.  The third transistor has two wires connecting the transistor to ground, so when pin 3 is written to HIGH, current will flow through those wires and into the solenoid.</div></em>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <footer>
+        <hr>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2012 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
+
+    </div><!-- /.container -->
+
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
